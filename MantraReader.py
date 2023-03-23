@@ -49,8 +49,8 @@ f = open (inputfile, 'r')
 id_list = []
 obid_list = []
 mag_list = []
-magerr = []
-mjd = []
+magerr_list = []
+mjd_list = []
 
 # Read data in line by line
 
@@ -61,41 +61,40 @@ for line in f:
               print (line),
         else :
 
-             lst = line.split ('|')
+            lst = line.split ('|')
 
              #if (len (lst) > 37) :
 
-                idstr = lst [0]
-                obidstr = lst [1]
-                magstr = lst [2]
-                magerrstr = lst [3]
-                mjdstr = lst [4]
+            idstr = lst [0]
+            obidstr = lst [1]
+            magstr = lst [2]
+            magerrstr = lst [3]
+            mjdstr = lst [4]
 
 # Reject non-numerical entries - typically blank in Hipparcos
 
-                if is_number (obidstr) and is_number (magstr) and is_number (magerrstr) and is_number (mjdstr) ):
+        if is_number (obidstr) and is_number (magstr) and is_number (magerrstr) and is_number (mjdstr):
 
-                   u = float (ustr)
-                   v = float (vstr)
-                   w = float (wstr)
-                   age = float (agestr)
-                   metal = float (metalstr)
+            idno = float (idstr)
+            objd = float (obidstr)
+            mag = float (magstr)
+            magerr = float (magerrstr)
+            mjd = float (mjdstr)
+            
 
-                   u_list.append (u)
-                   v_list.append (v)
-                   w_list.append (w)
-                   age_list.append (age)
-                   metallicity_list.append (metal)
+            id_list.append (idno)
+            obid_list.append (objd)
+            mag_list.append (mag)
+            magerr_list.append (magerrstr)
+            mjd_list.append (mjdstr)
 
 # Convert to numpy arrays from python lists.
 
-u_velocity = np.array (u_list)
-v_velocity = np.array (v_list)
-w_velocity = np.array (w_list)
-
-stellar_age = np.array (age_list)
-
-metallicity = np.array (metallicity_list)
+idno = np.array (id_list)
+objd = np.array (obid_list)
+mag = np.array (mag_list)
+magerr = np.array (magerr_list)
+mjd = np.array (mjd_list)
 
 # Generate plot.
 
