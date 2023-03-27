@@ -102,6 +102,6 @@ ax = plt.gca()
 
 plt.plot (obid_list, mag, 'ko', markersize = 1)
 
-outputfile = 'plot.png'
+outputfile = 'mantra_plot.png'
 plt.savefig (outputfile, format = 'png', dpi = 300)
 plt.close ()
