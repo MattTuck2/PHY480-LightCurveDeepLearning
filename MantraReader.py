@@ -17,6 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pylab as p
 import math
+import os # use os library to specify machine-independent paths
 
 # Short routine to determine whether an input string is either a number 
 #  or not -- true or false. We use this to eliminate empty or bad data
@@ -31,14 +32,17 @@ def is_number (s):
 
 
 #inputfile = 'C:\Users\MattT\Downloads\MANTRA-master.zip\MANTRA-master\data\lightcurves'
-inputfile = '..\MANTRA\data\lightcurves'
-#outputfile = 'plot.pdf'
+directory = os.path.join ("MANTRA", "data", "lightcurves")
+inputfile  = os.path.join (directory, "transient_lightcurves.csv")
+
+#inputfile = 'MANTRA\data\lightcurves'
+outputfile = 'plot.pdf'
 
 #def generate_plot (inputfile, outputfile, plot_color):
 
 # Flag to indicate verboity of output (0 non-verbose, 1 verbose)
 
-verbose = 0
+verbose = 1
 
 # Open data file for reading
 
@@ -56,37 +60,37 @@ mjd_list = []
 
 for line in f:
 
+        if (verbose == 1) :
+           print (line),
+
         if line.startswith("#") :
-           if (verbose == 1) :
-              print (line),
+           pass # do nothing
         else :
 
-            lst = line.split ('|')
+           lst = line.split (',')
 
-             #if (len (lst) > 37) :
-
-            idstr = lst [0]
-            obidstr = lst [1]
-            magstr = lst [2]
-            magerrstr = lst [3]
-            mjdstr = lst [4]
+           idstr = lst [0]
+           obidstr = lst [1]
+           magstr = lst [2]
+           magerrstr = lst [3]
+           mjdstr = lst [4]
 
 # Reject non-numerical entries - typically blank in Hipparcos
 
-        if is_number (obidstr) and is_number (magstr) and is_number (magerrstr) and is_number (mjdstr):
+           if is_number (obidstr) and is_number (magstr) and is_number (magerrstr) and is_number (mjdstr):
 
-            idno = float (idstr)
-            objd = float (obidstr)
-            mag = float (magstr)
-            magerr = float (magerrstr)
-            mjd = float (mjdstr)
+             #id = float (idstr)
+             objd = float (obidstr)
+             mag = float (magstr)
+             magerr = float (magerrstr)
+             mjd = float (mjdstr)
             
 
-            id_list.append (idno)
-            obid_list.append (objd)
-            mag_list.append (mag)
-            magerr_list.append (magerrstr)
-            mjd_list.append (mjdstr)
+             id_list.append (idstr)
+             obid_list.append (objd)
+             mag_list.append (mag)
+             magerr_list.append (magerrstr)
+             mjd_list.append (mjdstr)
 
 # Convert to numpy arrays from python lists.
 
@@ -98,13 +102,11 @@ mjd = np.array (mjd_list)
 
 # Generate plot.
 
-#   plt.plot (bminusv, MV, 'ko', markersize = 1)
-plt.ylabel ('Metallicity [Fe/H]')
-plt.xlabel ("Stellar Age")
+plt.ylabel ('y axis')
+plt.xlabel ('x axis')
 ax = plt.gca()
-#ax.set_yscale ('log')
 
-plt.plot (stellar_age, metallicity, 'ko', markersize = 1)
+plt.plot (obid_list, mag, 'ko', markersize = 1)
 
 plt.savefig (outputfile, format = 'pdf')
 plt.close ()
