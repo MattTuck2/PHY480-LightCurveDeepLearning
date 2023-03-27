@@ -31,18 +31,12 @@ def is_number (s):
         return False
 
 
-#inputfile = 'C:\Users\MattT\Downloads\MANTRA-master.zip\MANTRA-master\data\lightcurves'
 directory = os.path.join ("MANTRA", "data", "lightcurves")
 inputfile  = os.path.join (directory, "transient_lightcurves.csv")
 
-#inputfile = 'MANTRA\data\lightcurves'
-outputfile = 'plot.pdf'
-
-#def generate_plot (inputfile, outputfile, plot_color):
-
 # Flag to indicate verboity of output (0 non-verbose, 1 verbose)
 
-verbose = 1
+verbose = 0
 
 # Open data file for reading
 
@@ -102,11 +96,12 @@ mjd = np.array (mjd_list)
 
 # Generate plot.
 
-plt.ylabel ('y axis')
-plt.xlabel ('x axis')
+plt.ylabel ('Magnitude')
+plt.xlabel ('Object Identification Number')
 ax = plt.gca()
 
 plt.plot (obid_list, mag, 'ko', markersize = 1)
 
-plt.savefig (outputfile, format = 'pdf')
+outputfile = 'plot.png'
+plt.savefig (outputfile, format = 'png', dpi = 300)
 plt.close ()
