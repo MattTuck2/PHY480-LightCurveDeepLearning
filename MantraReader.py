@@ -2,13 +2,12 @@
 
 #----------------------------------------------------------------------
 #
-# MANTRA Reader
+# Many ANnotated TRAnsients (MANTRA) Reader. See paper for more 
+#  (DOI 10.3847/1538-4365/aba267).
 #
-# Takes Extended Hipparcos data (XHIP) directly input through an ASCII
-#  text file, and processes it. Data source located at :
-#     http://cdsarc.u-strasbg.fr/viz-bin/Cat?V/137D
+# Read in MANTRA transient light curve data.
 #
-# 
+#  Matt Tuck, Vangjel Kutella, and Robert Fisher, 3/27/23
 #
 #----------------------------------------------------------------------
 
@@ -34,7 +33,7 @@ def is_number (s):
 directory = os.path.join ("MANTRA", "data", "lightcurves")
 inputfile  = os.path.join (directory, "transient_lightcurves.csv")
 
-# Flag to indicate verboity of output (0 non-verbose, 1 verbose)
+# Flag to indicate verbosity of output (0 non-verbose, 1 verbose)
 
 verbose = 0
 
