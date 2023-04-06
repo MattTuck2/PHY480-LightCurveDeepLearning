@@ -29,6 +29,32 @@ light_curve_data = light_curves.get_group(example_object_id)
 selected_data = light_curve_data[['observation_id', 'mag']]
 
 print(selected_data)
+#
+#
+# read in the CSV file
+df = pd.read_csv('transient_labels.csv')
+
+# rename columns
+df.columns = ['Classification', 'TransientID']
+
+# create a dictionary to search for Classification by TransientID
+transient_dict = dict(zip(df.TransientID, df.Classification))
+
+# example usage of the dictionary
+transient_id = '12345'
+classification = transient_dict.get(transient_id, 'Not found')
+print(f'The classification for TransientID {transient_id} is {classification}')
+#
+#
+# read in the existing CSV file
+df = pd.read_csv('transient_lightcurves.csv')
+
+# add a 'Classification' column to the existing dataframe
+df['Classification'] = df['TransientID'].map(transient_dict)
+
+# write the updated dataframe to the existing CSV file
+df.to_csv('transient_lightcurves.csv', index=False)
+
 
 
 # Add labels and a legend to the plot
