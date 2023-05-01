@@ -8,6 +8,6 @@ def read_light_curve_data(file_path):
     data = pd.read_csv(file_path, sep=',', header=None, names=column_names, comment='#')
 
     # Organize the data by object ID
-    organized_data = data.groupby('ID')
+#    organized_data = data.groupby('ID')
 
-    return organized_data
+    return data
